@@ -1,0 +1,31 @@
+all:
+  vars:
+    ansible_user: ansiblerunner
+    ansible_ssh_extra_args: '-t'
+    path_to_dist_files: /tmp
+    stand: "71-72"
+    product: simi
+    facility: marand
+
+  children:
+    simi2:
+      hosts:
+        192.168.88.34:
+        192.168.88.35:
+      vars:
+        tomcat_memory_size: 4g
+
+    thinkehr:
+      hosts:
+        192.168.88.34:
+        192.168.88.35:
+      vars:
+        thinkehr_cluster_name: marand
+        thinkehr_memory_size: 4g
+	stand: dev
+    
+    cassandra:
+      hosts:
+        192.168.88.34:
+        192.168.88.35:
+        192.168.88.36:
