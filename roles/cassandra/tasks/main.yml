@@ -1,0 +1,11 @@
+- name: Create directory for cassandra
+    file:
+      path: "{{ cassandra_dir }}"
+      state: directory
+      owner: "{{ cassandra_user }}"
+
+- name: Create directory for logs 
+    file:
+      path: "{{ cassandra_dir }}/logs"
+      state: directory
+      owner: "{{ cassandra_user }}"
