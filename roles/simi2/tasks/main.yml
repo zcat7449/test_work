@@ -1,0 +1,20 @@
+- name: Create directory for tomcat
+    file:
+      path: "{{ tomcat_dir }}"
+      state: directory
+      owner: "{{ tomcat_user }}"
+
+- name: Create directory for logs 
+    file:
+      path: "{{ tomcat_dir }}/logs/{{ item }}"
+      state: directory
+      owner: "{{ tomcat_user }}"
+    with_items:
+    - "Simi2Soap"
+    - "EventProcessor"
+
+- name: Create directory for webapps 
+    file:
+      path: "{{ tomcat_dir }}/webapps"
+      state: directory
+      owner: "{{ tomcat_user }}"
