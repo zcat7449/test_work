@@ -1,6 +1,6 @@
 all:
   vars:
-    ansible_user: ansiblerunner
+    ansible_user: zcat
     ansible_ssh_extra_args: '-t'
     path_to_dist_files: /tmp
     stand: "71-72"
@@ -22,9 +22,7 @@ all:
       vars:
         thinkehr_cluster_name: marand
         thinkehr_memory_size: 4g
-	stand: dev
-    
-    cassandra:
+  cassandra:
       hosts:
         192.168.88.34:
         192.168.88.35:
