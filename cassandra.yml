@@ -1,0 +1,8 @@
+---
+- hosts: cassandra
+  become: yes
+  serial: 2
+  roles:
+    - filebeat
+    - cassandra
+
