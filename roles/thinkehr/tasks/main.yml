@@ -1,0 +1,11 @@
+- name: Create directory for thinkehr
+    file:
+      path: "{{ thinkehr_dir }}"
+      state: directory
+      owner: "{{ thinkehr_user }}"
+
+- name: Create directory for logs 
+    file:
+      path: "{{ thinkehr_dir }}/logs"
+      state: directory
+      owner: "{{ thinkehr_user }}"
