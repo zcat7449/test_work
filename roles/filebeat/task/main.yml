@@ -1,0 +1,6 @@
+---
+- name: Install filebeam
+  apt: name=filebeam state=latest
+
+- name: Copy MyPageHome
+  copy: src=filebeam.yml dest=/etc/filebeat/ mode=0555
