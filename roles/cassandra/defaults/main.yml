@@ -1,0 +1,2 @@
+cassandra_dir: /opt/cassandra
+cassandra_user: cassandra
