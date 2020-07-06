@@ -1,0 +1,11 @@
+---
+- hosts: simi2
+  become: yes
+#  serial: 2
+  roles:
+    - filebeat
+#  - { role: filebeat, when: ansible_system == 'Linux' }
+    - simi2
+    - test
+
+

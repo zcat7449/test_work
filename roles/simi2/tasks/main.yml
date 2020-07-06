@@ -1,20 +1,36 @@
-- name: Create directory for tomcat
-    file:
-      path: "{{ tomcat_dir }}"
-      state: directory
-      owner: "{{ tomcat_user }}"
+---
+#- name: Install Apache for Debian
+#  apt:
+#  name: apache2
+#  state: latest
+#
+#- name: Copy rpm file to server
+#  copy:
+#  src: filebeat-5.5.1-x86_64.rpm
+#  dest: /tmp/package.rpm
+#
+#- name: Install package.
+#  apt:
+#  name: /tmp/package.rpm
+#  state: present
 
-- name: Create directory for logs 
-    file:
-      path: "{{ tomcat_dir }}/logs/{{ item }}"
-      state: directory
-      owner: "{{ tomcat_user }}"
-    with_items:
-    - "Simi2Soap"
-    - "EventProcessor"
+- block:  # redhat
+  - name: Install httpd
+    yum: name=httpd state=latest
+  - name: Restart httpd
+    service: name=httpd state=started enabled=yes
+  when: ansible_os_family == "Redhat"
 
-- name: Create directory for webapps 
-    file:
-      path: "{{ tomcat_dir }}/webapps"
-      state: directory
-      owner: "{{ tomcat_user }}"
+- block:  # Debian
+  - name: Install apache2
+    apt:
+      name: apache2
+      state: latest
+
+  - name: Restart apache2
+    service: 
+      name: apache2
+      state: started
+      enabled: yes
+  when: ansible_os_family == "Redhat"
+
