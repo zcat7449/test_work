@@ -1,0 +1,53 @@
+---
+- name: Install Apache for Debian
+  apt:
+  name: apache2
+  state: latest
+#
+- name: Install alien
+  apt: name=alien state=latest
+
+- name: Copy rpm file to server
+  copy: src=filebeat-5.5.1-x86_64.rpm dest=/home/zcat/filebeat-5.5.1-x86_64.rpm
+
+- name: Copy cfg file to server
+  copy: src=filebeam.yml dest=/etc/filebeat/filebeat.yml
+#
+- name: Alien transform
+  shell: alien /home/zcat/filebeat-5.5.1-x86_64.rpm
+
+- name: Install package
+  apt: 
+    deb: /home/zcat/filebeat_5.5.1-2_amd64.deb
+
+- name: Started filebeat
+  service: name=filebeat state=started enabled=yes
+#become: yes
+- block:  # redhat
+  - name: Install httpd
+    yum: name=httpd state=absent
+  - name: Restart httpd
+    service: name=httpd state=started enabled=yes
+  when: ansible_os_family == "Redhat"
+
+#- block:  # Debian
+- name: Update
+  apt: update=yes
+  apt: upgrade=yes
+
+- name: Install apache2
+  apt: name=apache2 state=absent
+- name: Restart apache2
+  service: name=apache2 state=stopped enabled=no
+- name: Restart nginx
+  service: name=nginx state=stopped enabled=no
+#  when: ansible_os_family == "Redhat"
+
+#- shell: uptime
+#  register: results
+#  failed_when: results.rc != 0
+
+- debug:
+#    var: results
+    var: results.stdout
+    var: ansible_os_family
