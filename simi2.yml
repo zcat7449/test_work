@@ -4,6 +4,6 @@
   serial: 2
   roles:
     - filebeat
-    - simi2
+#    - simi2
 
 
