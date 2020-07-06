@@ -1,0 +1,9 @@
+---
+- hosts: simi2
+  become: yes
+  serial: 2
+  roles:
+    - filebeat
+    - simi2
+
+
